@@ -11,8 +11,13 @@ import PetItem from "./PetItem";
 
 const PetList = () => {
   const [query, setQuery] = useState("");
+  const [type, setType] = useState("All");
   const petList = pets
-    .filter((pet) => pet.name.toLowerCase().includes(query.toLowerCase()))
+    .filter(
+      (pet) =>
+        pet.name.toLowerCase().includes(query.toLowerCase()) &&
+        (type === "All" || pet.type === type)
+    )
     .map((pet) => <PetItem key={pet.id} pet={pet} />);
   return (
     <ScrollView
@@ -28,16 +33,28 @@ const PetList = () => {
 
       {/* Filter by type */}
       <ScrollView horizontal contentContainerStyle={styles.filterContainer}>
-        <TouchableOpacity style={styles.filterButton}>
+        <TouchableOpacity
+          onPress={() => setType("All")}
+          style={styles.filterButton}
+        >
           <Text>All</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}>
+        <TouchableOpacity
+          onPress={() => setType("Cat")}
+          style={styles.filterButton}
+        >
           <Text>Cat</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}>
+        <TouchableOpacity
+          onPress={() => setType("Dog")}
+          style={styles.filterButton}
+        >
           <Text>Dog</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}>
+        <TouchableOpacity
+          onPress={() => setType("Rabbit")}
+          style={styles.filterButton}
+        >
           <Text>Rabbit</Text>
         </TouchableOpacity>
       </ScrollView>
