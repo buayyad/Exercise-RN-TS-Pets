@@ -12,7 +12,7 @@ import PetItem from "./PetItem";
 const PetList = () => {
   const [query, setQuery] = useState("");
   const petList = pets
-    .filter((pet) => pet.name.includes(query))
+    .filter((pet) => pet.name.toLowerCase().includes(query.toLowerCase()))
     .map((pet) => <PetItem key={pet.id} pet={pet} />);
   return (
     <ScrollView
