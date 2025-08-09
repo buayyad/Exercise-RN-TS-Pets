@@ -12,9 +12,10 @@ interface PetItemProps {
     image: string;
     image2: string;
   };
+  onAdopt: (petId: number) => void;
 }
 
-const PetItem = ({ pet }: PetItemProps) => {
+const PetItem = ({ pet, onAdopt }: PetItemProps) => {
   const [Imageurl, setImageurl] = useState(pet.image);
 
   return (
@@ -35,7 +36,10 @@ const PetItem = ({ pet }: PetItemProps) => {
           <Text style={styles.buttonText}>Pet</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.adoptButton}>
+        <TouchableOpacity
+          onPress={() => onAdopt(pet.id)}
+          style={styles.adoptButton}
+        >
           <Text style={styles.buttonText}>Adopt</Text>
         </TouchableOpacity>
       </View>
