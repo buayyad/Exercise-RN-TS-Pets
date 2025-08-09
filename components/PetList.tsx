@@ -12,13 +12,18 @@ import PetItem from "./PetItem";
 const PetList = () => {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("All");
+  const [adoptedPets, setAdoptedPets] = useState<number[]>([]);
+  const handleAdoptPet = (petId: number) => {
+    setAdoptedPets([...adoptedPets, petId]);
+  };
   const petList = pets
     .filter(
       (pet) =>
         pet.name.toLowerCase().includes(query.toLowerCase()) &&
-        (type === "All" || pet.type === type)
+        (type === "All" || pet.type === type) &&
+        !adoptedPets.includes(pet.id)
     )
-    .map((pet) => <PetItem key={pet.id} pet={pet} />);
+    .map((pet) => <PetItem key={pet.id} pet={pet} onAdopt={handleAdoptPet} />);
   return (
     <ScrollView
       contentContainerStyle={styles.container}
